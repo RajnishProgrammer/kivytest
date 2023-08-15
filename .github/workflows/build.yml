@@ -13,6 +13,18 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
+      # Add a step to install Android SDK
+      - name: Install Android SDK
+        run: |
+          # Download and extract Android SDK
+          wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
+          unzip sdk-tools-linux-4333796.zip -d $HOME/android-sdk
+
+          # Set Android SDK path in environment variables
+          echo 'export ANDROID_SDK_ROOT=$HOME/android-sdk' >> $HOME/.bashrc
+          echo 'export PATH=$PATH:$ANDROID_SDK_ROOT/tools/bin' >> $HOME/.bashrc
+          source $HOME/.bashrc
+
       - name: Upgrade Pip
         run: /bin/python3 -m pip install --upgrade pip
 
