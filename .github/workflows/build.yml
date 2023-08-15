@@ -13,6 +13,9 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
+      - name: Upgrade Pip
+        run: /bin/python3 -m pip install --upgrade pip
+
       - name: Set Date Output
         id: get-date
         run: |
@@ -31,12 +34,15 @@ jobs:
           path: .buildozer
           key: ${{ runner.os }}-${{ steps.get-date.outputs.date }}-${{ hashFiles('buildozer.spec') }}
 
+      - name: Install Buildozer
+        run: /bin/python3 -m pip install --user git+https://github.com/kivy/buildozer.git@master
+
       - name: Build Android Package
         uses: ArtemSBulgakov/buildozer-action@v1
         id: buildozer
         with:
           command: buildozer android debug
-          buildozer_version: latest
+          buildozer_version: master
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
