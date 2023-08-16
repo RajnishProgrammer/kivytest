@@ -1,130 +1,25 @@
-<<<<<<< HEAD
-name: Android Build Workflow
-=======
-# name: CI
-# on:
-#   push:
-#     branches: [ main ]
-
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-
-#     steps:
-#       - uses: actions/checkout@v2
-
-#       # used to cache dependencies with a timeout
-#       - name: Get Date
-#         id: get-date
-#         run: |
-#           echo "::set-output name=date::$(/bin/date -u "+%Y%m%d")"
-#         shell: bash
-
-#       - name: Cache Buildozer global directory
-#         uses: actions/cache@v2
-#         with:
-#           path: .buildozer_global
-#           key: buildozer-global-${{ hashFiles('buildozer.spec') }} # Replace with your path
-
-#       - uses: actions/cache@v2
-#         with:
-#           path: .buildozer
-#           key: ${{ runner.os }}-${{ steps.get-date.outputs.date }}-${{ hashFiles('buildozer.spec') }}
-
-#       - name: Build with Buildozer
-#         uses: ArtemSBulgakov/buildozer-action@v1
-#         id: buildozer
-#         with:
-#           command: buildozer android debug
-#           buildozer_version: master
-
-#       - name: Upload artifacts
-#         uses: actions/upload-artifact@v2
-#         with:
-#           name: package
-#           path: ${{ steps.buildozer.outputs.filename }}
-
-
 name: Build Kivy App
->>>>>>> fc9b869... updated
 
 on:
   push:
     branches:
-<<<<<<< HEAD
-      - main
-=======
       - main  # Change this to your main branch name
   pull_request:
     branches:
       - main  # Change this to your main branch name
->>>>>>> fc9b869... updated
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-<<<<<<< HEAD
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      # Add a step to install Android SDK
-      - name: Install Android SDK
-        run: |
-          # Download and extract Android SDK
-          wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
-          unzip sdk-tools-linux-4333796.zip -d $HOME/android-sdk
-
-          # Set Android SDK path in environment variables
-          echo 'export ANDROID_SDK_ROOT=$HOME/android-sdk' >> $HOME/.bashrc
-          echo 'export PATH=$PATH:$ANDROID_SDK_ROOT/tools/bin' >> $HOME/.bashrc
-          source $HOME/.bashrc
-
-      - name: Upgrade Pip
-        run: /bin/python3 -m pip install --upgrade pip
-
-      - name: Set Date Output
-        id: get-date
-        run: |
-          echo "::set-output name=date::$(/bin/date -u "+%Y%m%d")"
-        shell: bash
-
-      - name: Cache Buildozer Global Directory
-        uses: actions/cache@v2
-        with:
-          path: .buildozer_global
-          key: buildozer-global-${{ hashFiles('buildozer.spec') }}
-
-      - name: Cache Buildozer Directory
-        uses: actions/cache@v2
-        with:
-          path: .buildozer
-          key: ${{ runner.os }}-${{ steps.get-date.outputs.date }}-${{ hashFiles('buildozer.spec') }}
-
-      - name: Install Buildozer
-        run: /bin/python3 -m pip install --user git+https://github.com/kivy/buildozer.git@master
-
-      - name: Build Android Package
-        uses: ArtemSBulgakov/buildozer-action@v1
-        id: buildozer
-        with:
-          command: buildozer android debug
-          buildozer_version: master
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: android-package
-          path: ${{ steps.buildozer.outputs.filename }}
-=======
     - name: Checkout code
       uses: actions/checkout@v2
 
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3  # Choose your desired Python version
+        python-version: 3.x  # Choose your desired Python version
 
     - name: Install dependencies
       run: |
@@ -141,4 +36,3 @@ jobs:
         name: app
         path: bin/*.apk  # Adjust the path to match the APK location
 
->>>>>>> fc9b869... updated
