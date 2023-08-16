@@ -26,6 +26,11 @@ jobs:
         python -m pip install --upgrade pip
         pip install buildozer cython
 
+    - name: Install Android Tools
+      run: |
+        sudo apt-get update -y
+        sudo apt-get install -y android-tools-adb android-tools-fastboot
+
     - name: Build Kivy App
       run: |
         buildozer android debug
