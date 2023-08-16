@@ -30,7 +30,7 @@ jobs:
       run: |
         sudo apt-get update -y
         sudo apt-get install -y android-tools-adb android-tools-fastboot
-        yes | sdkmanager --licenses
+        y
 
     - name: Build Kivy App
       run: |
