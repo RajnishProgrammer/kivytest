@@ -1,15 +1,71 @@
+<<<<<<< HEAD
 name: Android Build Workflow
+=======
+# name: CI
+# on:
+#   push:
+#     branches: [ main ]
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - uses: actions/checkout@v2
+
+#       # used to cache dependencies with a timeout
+#       - name: Get Date
+#         id: get-date
+#         run: |
+#           echo "::set-output name=date::$(/bin/date -u "+%Y%m%d")"
+#         shell: bash
+
+#       - name: Cache Buildozer global directory
+#         uses: actions/cache@v2
+#         with:
+#           path: .buildozer_global
+#           key: buildozer-global-${{ hashFiles('buildozer.spec') }} # Replace with your path
+
+#       - uses: actions/cache@v2
+#         with:
+#           path: .buildozer
+#           key: ${{ runner.os }}-${{ steps.get-date.outputs.date }}-${{ hashFiles('buildozer.spec') }}
+
+#       - name: Build with Buildozer
+#         uses: ArtemSBulgakov/buildozer-action@v1
+#         id: buildozer
+#         with:
+#           command: buildozer android debug
+#           buildozer_version: master
+
+#       - name: Upload artifacts
+#         uses: actions/upload-artifact@v2
+#         with:
+#           name: package
+#           path: ${{ steps.buildozer.outputs.filename }}
+
+
+name: Build Kivy App
+>>>>>>> fc9b869... updated
 
 on:
   push:
     branches:
+<<<<<<< HEAD
       - main
+=======
+      - main  # Change this to your main branch name
+  pull_request:
+    branches:
+      - main  # Change this to your main branch name
+>>>>>>> fc9b869... updated
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
+<<<<<<< HEAD
       - name: Checkout Repository
         uses: actions/checkout@v2
 
@@ -61,3 +117,28 @@ jobs:
         with:
           name: android-package
           path: ${{ steps.buildozer.outputs.filename }}
+=======
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3  # Choose your desired Python version
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install buildozer
+
+    - name: Build Kivy App
+      run: |
+        buildozer android debug
+
+    - name: Upload APK
+      uses: actions/upload-artifact@v2
+      with:
+        name: app
+        path: bin/*.apk  # Adjust the path to match the APK location
+
+>>>>>>> fc9b869... updated
